@@ -45,17 +45,13 @@ void ATank_TopDown::BeginPlay()
 
 
 	//playerpawn = UGameplayStatics::GetPlayerPawn(this,0);
-	TArray<AActor*> FoundPlayers;
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), APawn::StaticClass(), FoundPlayers);
-
-	for (AActor* Player : FoundPlayers)
-	{
-		APawn* PlayerPawnee = Cast<APawn>(Player);
+	
+		APawn* PlayerPawnee = UGameplayStatics::GetPlayerPawn(this,0);
 		if (PlayerPawnee)
 		{
 			playerpawn = PlayerPawnee;
 		}
-	}
+	
 }
 
 // Called every frame
@@ -92,7 +88,7 @@ void ATank_TopDown::LockAtTarget(FVector target)
 	tankturet->SetWorldRotation(NewRotation);
 
 	// Set the new rotation for turret
-	FVector TargetFixLocation2 = FVector(target.X, target.Y, (target.Z-3));
+	FVector TargetFixLocation2 = FVector(target.X, target.Y, (target.Z+3));
 
 	// Calculate rotation for barrel
 	FRotator NewBarrelRotation = (TargetFixLocation2 - BarrelLocation).Rotation();
